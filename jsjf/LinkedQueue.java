@@ -9,6 +9,33 @@ public class LinkedQueue<T> implements QueueADT<T>{
   private int count;
   private LinearNode<T> head, tail;
 
+  public static void main(String[] args){
+    LinkedQueue<Character> queue = new LinkedQueue<>();
+    queue.enqueue('a');
+    queue.enqueue('b');
+    queue.enqueue('c');
+    queue.enqueue('d');
+    System.out.println("expect: abcd");
+    System.out.println("   got: " +queue):
+
+    Character c = queue.dequeue();
+    System.out.println("expect: a");
+    System.out.println("  got: " +c);
+
+    queue.dequeue();
+    queue.dequeue();
+    queue.dequeue();
+    System.out.println("expect: empty string");
+    System.out.println("  got: " +queue);
+
+    System.out.println("expect: EmptyCollectionException to be thrown");
+    try{
+      queue.dequeue();
+    }catch(EmptyCollectionException e){
+      System.out.println("EmptyCollectionException is caught");
+    }
+  }
+
   /**
    * Creates an empty queue.
    */
@@ -22,7 +49,14 @@ public class LinkedQueue<T> implements QueueADT<T>{
    * @param element the element to be added to the tail of the queue
    */
   public void enqueue(T element){
-    return;
+    LinearNode<T> newNode = new LinearNode<>(element);
+    if (isEmpty()) {
+      head = newNode;
+    }else {
+      tail.setNext(newNode);
+    }
+    tail.newNode;
+    count++;
   }
 
   /**
@@ -32,7 +66,16 @@ public class LinkedQueue<T> implements QueueADT<T>{
    * @throws EmptyCollectionException if the queue is empty
    */
   public T dequeue() throws EmptyCollectionException{
-    return null;
+    if (isEmpty()){
+      throw new EmptyCollectionException("Queue is empty.");
+    }
+    T result = head.getElement();
+    head = head.getNext();
+    count--;
+    if (isEmpty()){
+      tail = null;
+    }
+    return result;
   }
 
   /**
@@ -42,8 +85,10 @@ public class LinkedQueue<T> implements QueueADT<T>{
    * @throws EmptyCollectionsException if the queue is empty
    */
   public T first() throws EmptyCollectionException{
-   // To be completed as a Programming Project
-    return null;
+    if (isEmpty()){
+      throw nnew EmptyCollectionException("Queue is empty.");
+    }
+    return head.getElement();
   }
 
   /**
@@ -51,8 +96,7 @@ public class LinkedQueue<T> implements QueueADT<T>{
   * @return true if this queue is empty
   */
   public boolean isEmpty(){
-    // To be completed as a Programming Project
-    return false;
+    return count == 0;
   }
 
   /**
@@ -60,8 +104,7 @@ public class LinkedQueue<T> implements QueueADT<T>{
    * @return the number of elements in the queue
    */
   public int size(){
-    // To be completed as a Programming Project
-    return 0;
+    return count;
   }
 
   /**
